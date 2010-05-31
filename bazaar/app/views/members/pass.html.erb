@@ -1,0 +1,22 @@
+<h1>Change your password</h1>
+
+<% form_for(@member) do |f| %>
+  <%= f.error_messages %>
+
+
+  <p>
+      <%= f.label :member_password, 'Password' %><br />
+      <%= f.password_field :password %>
+    </p>
+    <p>
+      <%= f.label :member_password_confirmation, 'Confirm Password' %><br />
+      <%= f.password_field :password_confirmation %>
+    </p>
+
+  <p>
+    <%= f.submit "Update", :name => 'member[pass_submit]' %>
+  </p>
+<% end %>
+	
+<%= link_to 'Show', @member %> |
+<%= link_to 'Cancel', {:controller => "user", :action => "login"}  %>

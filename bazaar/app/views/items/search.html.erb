@@ -1,0 +1,19 @@
+
+<h1>Advanced Search</h1>
+
+<% form_tag items_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <br />
+    <p>
+      <label for="item_search">Search by:</label>
+      <%= select_tag :by, options_for_select(["Item", "Username", "Type"])  %>
+      <!-- removed ", params[:by]" from end of above line -->
+    </p>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<br />
+
+

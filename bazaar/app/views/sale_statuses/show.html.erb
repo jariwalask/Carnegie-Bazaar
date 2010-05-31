@@ -1,0 +1,12 @@
+<p>
+  <b>Status:</b>
+  <%=h @sale_status.status %>
+</p>
+
+<p>
+  <b>Status description:</b>
+  <%=h @sale_status.description %>
+</p>
+
+<%= link_to 'Edit', edit_sale_status_path(@sale_status) %> |
+<%= link_to 'Back', sale_statuses_path %>

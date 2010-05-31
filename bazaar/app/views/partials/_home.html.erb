@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Carnegie Bazaar</title>
+  <%= stylesheet_link_tag 'good2' %>
+</head>
+<body>
+<div id="header">
+	<div id="logo">
+	<h1></h1>
+	</div>
+	<div id="menu">
+		<ul>
+                <li>  <%= link_to "Home", {:controller => "user", :action => "login"} %></li>
+                <li>  <%= link_to 'Items for Sale', {:controller=>"items",:action =>"index"} %></li>
+                 <% if session[:member_id]  %>
+                      <%= link_to "Logout", {:controller=>"user",:action =>"logout"} %>
+                <% else  %>
+                    <%= link_to "Register", {:controller=>"Members",:action =>"new"} %>
+                <% end %>
+                </ul>
+       </div>
+</div>
+<div id="page">
+	<div id="content">
+		<div>
+			<h1 class="title">Welcome to Carnegie Bazaar!</h1>
+			<p style="color: green"><%= flash[:notice] %></p>
+                         <%= yield  %>
+		</div>
+		<div class="twocols">
+			<div class="col1">
+
+			</div>
+			<div class="col2">
+
+			</div>
+		</div>
+	</div>
+	<div id="sidebar">
+		<div id="search" class="boxed">
+			<h2 class="title">Search</h2>
+			<div class="content">
+				<form id="searchform" method="get" action="">
+					<fieldset>
+					<input id="searchinput" type="text" name="searchinput" value="" />
+					<input id="searchsubmit" type="submit" value="Search" />
+					</fieldset>
+				</form>
+				<p><a href="#">Advanced Search</a></p>
+			</div>
+		</div>
+                <div id="news" class="boxed">
+                        <h2 class="title">Manage Account</h2>
+			<div class="content">
+				<ul class="list">
+                                    <%= link_to "Edit Account Information", {:controller=>"members", :action =>"edit", :id =>session[:member_id] } %><br/>
+                                    <%= link_to "Delete Account", {:controller=>"members", :action =>"edit", :id =>session[:member_id] } %>
+				</ul>
+			</div>
+		</div>
+		<div id="extra" class="boxed">
+			<h2 class="title">Bazaar Tools</h2>
+			<div class="content">
+				<ul class="list">
+                                    <% if session[:member_id]  %>
+                                          <%= link_to "Post Advertisement", {:controller=>"items", :action =>"new" } %><br/>
+                                          <%= link_to "My Advertisements", {:controller=>"items", :action =>"new" } %><br/>
+                                          <%= link_to "Edit Advertisement", {:controller=>"items", :action =>"new" } %><br/>
+                                          <%= link_to "Delete Advertisement", {:controller=>"items", :action =>"new" } %><br/>
+                                          <%= link_to "Transaction Statuses", {:controller=>"items", :action =>"new" } %><br/>
+
+                                    <% end %>
+                                    <% if session[:member_id]  %>
+                                          <%= link_to "Logout", {:controller=>"user",:action =>"logout"} %>
+                                     <% else  %>
+                                          <%= link_to "Please Login to access", {:controller=>"user",:action =>"login"} %>
+                                     <% end %>
+				</ul>
+			</div>
+
+<% content_for(:sidebar) do %>
+    <% if !session[:member_id] %>
+       <%=   render(:partial=>"user/get_access") %>
+    <% end %>
+ <% end %>
+                
+		</div>
+
+		<div id="footer">
+Designed by Global Trekkers All Rights Reserved | <a>Privacy</a> | <a>Terms</a></a></p>
+		</div>
+	</div>
+</div>
+</body>
+</html>

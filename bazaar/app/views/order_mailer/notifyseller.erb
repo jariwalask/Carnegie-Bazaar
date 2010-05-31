@@ -1,0 +1,10 @@
+OrderMailer#notifyseller
+
+Dear <%=  @member.fname %> <%= @member.lname %>,
+
+The user, <%= Member.find_by_id(@transaction.buyer_id).username %>, has made an offer to purchase your item (<%=  Item.find_by_id(@transaction.item_id).itemTitle %>)! Please contact <%= Member.find_by_id(@transaction.buyer_id).username %> at the following address: <%= Member.find_by_id(@transaction.buyer_id).email %>.
+Make sure to sepcify when and where you wish to sell your item.
+**** Once you have sold your item, please edit your item's posting(link below) and update the status to "Sold" ****
+ http://localhost:3000/items/edit/<%=Item.find_by_id(@transaction.item_id).id%>
+ 
+        Thank you for using Carnegie Mellon Bazaar!

@@ -1,0 +1,26 @@
+
+
+
+<% form_tag do %>
+<fieldset>
+  <legend>Please enter your email to reset your password</legend><br>
+<div>
+
+<%= text_field_tag :email, params[:email] %>
+</div><br>
+<div>
+<%= submit_tag "Submit" %>
+</div>
+<br>
+  This will send a password change request to the email specified
+</fieldset>
+<% end %>
+
+
+<%# content_for(:sidebar) do %>
+    <%# if !session[:member_id] %>
+       <%#=   render(:partial=>"get_access") %>
+    <%#end %>
+ <%# end %>
+
+

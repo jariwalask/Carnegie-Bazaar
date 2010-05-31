@@ -1,0 +1,26 @@
+
+
+
+<% form_tag do %>
+<fieldset>
+  <div>
+
+  <legend>Please Enter Your password</legend><br><br>
+  Username: <%= @member.username %>
+</div><br>
+  
+<div>
+Password: <%= password_field_tag :password, params[:password] %>
+</div><br>
+
+    <div>
+Confirm Password: <%= password_field_tag :ConfirmPassword, params[:ConfirmPassword] %>
+</div><br>
+<div>
+<%= submit_tag "Reset" %>
+</div>
+</fieldset>
+<% end %>
+
+
+

@@ -1,0 +1,63 @@
+<% if session[:member_id] %>
+<h1 align="center"> Hello <%=h session[:member_name] %>. Welcome to Carnegie Bazaar</h1>
+<% else %>
+<h1 align="center"> Hello Visitor. Welcome to Carnegie Bazaar</h1><hr/>
+<% end %>
+<br /><br />
+<h2 style="color:gray; font-size:150%;">Below is a listing of the 5 newest items for sale, if you would like to see the rest, please click on "Items on Sale"
+
+</h2>
+
+<br>
+<table>
+  <tr VALIGN="top" ALIGN="left">
+    <!-- <th>Seller</th> -->
+   
+    <th>Type</th>
+    <th>Item Title</th>
+    <% unless params[:search] %>
+    <th>description</th>
+    <% end %>
+    <th>Price</th>
+    <th>Date added </th>
+    <th>status</th>
+  </tr>
+
+<% for item in @items %>
+	<tr class="<%= cycle("even", "odd") -%>" VALIGN="top">
+    <!-- <td><%=h item.seller_id %></td> -->
+    <!-- <td><%=h item.type_id %></td> -->
+    <td><%=h item.type %></td>
+    <td><%= link_to item.itemTitle, item %></td>
+    <% unless params[:search] %>
+    <td><%=h truncate item.itemDescription, 25 %></td>
+    <% end %>
+    <td><%=h item.cost.round %></td>
+    <td><%=h item.dateAdded.strftime("%d %b %Y") %></td>
+    <td><%=h item.status %></td>
+    <!-- <td><%= button_to 'Show', item %></td> Hide show since the title links to it - skj-->
+	<% if (!session[:member_id]) %>
+		<% if (item.saleStatus=="1") %>
+			<td><%= button_to 'Buy', :controller => "items",:id => item.id, :action => "buy", :confirm => 'Are you sure?' %></td>
+		<% else %> 
+			<td> </td>
+		<% end %>
+	<% elsif (item.saleStatus =="1") %>
+		<% if (item.seller_id == session[:member_id]) %>
+			<td><%= button_to 'Edit', { :controller => "Items", :action => "edit", :id => item.id } %></td>
+			<td><%= button_to 'Delete', item, :confirm => 'Are you sure?', :method => :delete %></td>
+		<% else %>
+			<td><%= button_to 'Buy', :controller => "items",:id => item.id, :action => "buy", :confirm => 'Are you sure?' %></td><td></td>
+		<% end %>
+	<% else %>
+		<td> </td> <td> </td>
+		
+	<% end %>
+	
+	
+	
+	
+  </tr>
+<% end %>
+</table>
+<br />

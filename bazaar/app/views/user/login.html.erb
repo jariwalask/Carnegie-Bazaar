@@ -1,0 +1,22 @@
+<div class="post">
+
+    <% if !session[:member_id] %>
+
+
+	  <h1 align="center">Welcome to Carnegie Bazaar</h1>
+
+	  <p> Please Login or <%= link_to 'Register!', {:controller=>"Members",:action =>"new"} %> if you do not have an account already</p>
+	      <% end %>
+
+      <% if session[:member_id] %>
+		<b>Welcome back <%=h session[:member_name] %>!</b>
+ 	  <% end %>
+
+
+</div>
+
+<% content_for(:sidebar) do %>
+    <% if !session[:member_id] %>
+       <%=   render(:partial=>"get_access") %>
+    <% end %>
+ <% end %>

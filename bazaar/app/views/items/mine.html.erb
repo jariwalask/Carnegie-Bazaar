@@ -1,0 +1,37 @@
+
+<h1>Listing your items</h1>
+<br>
+<table>
+  <tr>
+    <!-- <th>Seller</th> -->
+    <th>Type</th>
+    <th>Item title</th>
+    <th>Item description</th>
+    <th>Price</th>
+    <th>Date added</th>
+    <th>Sale status</th>
+  </tr>
+
+<% for item in @items %>
+  <tr class="<%= cycle("even", "odd") -%>" VALIGN="top">
+    <!-- <td><%=h item.type_id %></td> -->
+    <td><%=h item.type %></td>
+    <td><%= link_to item.itemTitle, item %></td>
+    <td><%=h item.itemDescription %></td>
+    <td><%=h item.cost.round %></td>
+    <td><%=h item.dateAdded.strftime("%d %b %Y") %></td>
+    <td><%=h item.status %></td>
+    <!-- <td><%= link_to 'Show', item %></td> Hide show since the title links to it - skj-->
+    <% unless (item.seller_id == session[:member_id] || !session[:member_id]) %>
+      <td><%= link_to 'Buy', :controller => "items",:id => item.id, :action => "buy", :confirm => 'Are you sure?' %></td>
+    <% end %>
+    <% if item.seller_id == session[:member_id] && item.saleStatus != "3" %>
+      <td><%= button_to 'Edit', { :controller => "Items", :action => "edit", :id => item.id } %></td>
+	  <td><%= button_to 'Delete', item, :confirm => 'Are you sure?', :method => :delete %></td>
+	 <%else%><td></td><td></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />

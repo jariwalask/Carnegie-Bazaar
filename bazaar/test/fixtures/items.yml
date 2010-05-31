@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  seller_id: 1
+  type_id: 1
+  itemTitle: MyString
+  itemDescription: MyText
+  cost: 1.5
+  dateAdded: 2010-03-03
+  saleStatus: MyString
+
+two:
+  seller_id: 1
+  type_id: 1
+  itemTitle: MyString
+  itemDescription: MyText
+  cost: 1.5
+  dateAdded: 2010-03-03
+  saleStatus: MyString

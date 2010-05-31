@@ -1,0 +1,53 @@
+<%if session[:member_id]== @item.seller_id %>
+
+<h1>Editing item details</h1>
+
+<% form_for(@item) do |f| %>
+  <%= f.error_messages %>
+  <!-- Should not be able to edit the sellerid/username - skj
+  <p>
+    <%= f.label :seller_id %><br />
+    <%= f.text_field :seller_id %>
+  </p>
+  <p>
+    <%= f.label :seller %><br />
+    <%= f.text_field :seller %>
+  </p>
+  -->
+  <p>
+    <%= f.label :type_id, 'Type' %><br />
+    <%= f.collection_select :type_id, ItemType.all, :id, :itemType, :prompt => "Select ..." %>
+  </p>
+  <p>
+    <%= f.label :itemTitle, 'Title' %><br />
+    <%= f.text_field :itemTitle, :maxlength=>51  %>
+  </p>
+  <p>
+    <%= f.label :itemDescription, 'Description' %><br />
+    <%= f.text_area :itemDescription %>
+  </p>
+  <p>
+    <%= f.label :cost, 'Price' %><br />
+    <%= f.text_field :cost, :maxlength=>5 %>
+  </p>
+  <!-- Date added should not be modifiable - skj
+  <p>
+    <%= f.label :dateAdded, 'Date Added' %><br />
+    <%= f.date_select :dateAdded %>
+  </p>
+  -->
+  <p>
+    <%= f.label :saleStatus, 'Status' %><br />
+    <%= f.collection_select :saleStatus, SaleStatus.all, :id, :status, :prompt => "Select ..." %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @item %> |
+<%= link_to 'Cancel', {:controller=>"items", :action =>"mine" } %>
+
+<%else%>
+ERROR, please return to Home page
+<%end%>

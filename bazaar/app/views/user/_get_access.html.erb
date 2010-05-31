@@ -1,0 +1,28 @@
+<div class="login-form">
+  <% form_tag('/user/login') do %>
+  
+<fieldset>
+  <legend>Please Log In</legend>
+<div>
+<label for="username">Username:</label>
+<%= text_field_tag :username, params[:username] %>
+</div>
+<div>
+<label for="password">Password:</label>
+<%= password_field_tag :password, params[:password] %>
+</div>
+<div>
+<p>
+<%= submit_tag "Login" %>
+</p>
+<%= link_to 'Forgot your password?', {:controller=>"User",:action =>"forgot"} %>
+<%= link_to 'Register', {:controller=>"Members",:action =>"new"} %>
+</div>
+</fieldset>
+
+  <% end %>
+</div>
+
+
+
+

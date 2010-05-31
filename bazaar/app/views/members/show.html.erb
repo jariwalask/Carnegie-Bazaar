@@ -1,0 +1,29 @@
+<p>
+  <b>First Name:</b>
+  <%=h @member.fname %>
+</p>
+
+<p>
+  <b>Last Name:</b>
+  <%=h @member.lname %>
+</p>
+
+<p>
+  <b>User Name:</b>
+  <%=h @member.username %>
+</p>
+
+<p>
+  <b>E-mail:</b>
+  <%=h @member.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%=h @member.phone %>
+</p>
+
+
+<%= link_to 'Back', edit_member_path(@member) %> |
+<%= link_to 'Cancel', {:controller => "user", :action => "login"}  %>
+

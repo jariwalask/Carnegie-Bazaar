@@ -1,0 +1,22 @@
+<h1>Listing Sale statuses</h1>
+
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Description</th>
+  </tr>
+
+<% for sale_status in @sale_statuses %>
+  <tr>
+    <td><%=h sale_status.status %></td>
+    <td><%=h sale_status.description %></td>
+    <td><%= link_to 'Show', sale_status %></td>
+    <td><%= link_to 'Edit', edit_sale_status_path(sale_status) %></td>
+    <td><%= link_to 'Destroy', sale_status, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New sale status', new_sale_status_path %>

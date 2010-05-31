@@ -1,0 +1,50 @@
+<!-- No need to show the seller id - skj
+<p>
+  <b>Seller:</b>
+  <%=h @item.seller_id %>
+</p>
+-->
+<p>
+  <b>Seller:</b>
+  <%=h @item.seller %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%#=h @item.type_id %>
+  <%=h @item.type %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @item.itemTitle %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @item.itemDescription %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @item.cost.round %>
+</p>
+
+<p>
+  <b>Date Added:</b>
+  <%=h @item.dateAdded.strftime("%d %b %Y") %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @item.status %>
+</p>
+
+<%if session[:member_id] == @item.seller_id %>
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', {:controller=>"items", :action =>"mine" } %>
+<%else%>
+<%= link_to 'Buy', :controller => "items",:id => @item.id, :action => "buy", :confirm => 'Are you sure?' %> |
+<%= link_to 'Back', {:controller=>"items", :action =>"index" } %>
+<%end%>
+

@@ -1,0 +1,10 @@
+<div class="post">
+  <h3>Welcome to Carnegie Bazaar! </h3><br>
+Welcome back <%=h session[:member_name] %>!
+</div>
+
+<% content_for(:sidebar) do %>
+    <% if !session[:member_id] %>
+       <%=   render(:partial=>"user/get_access") %>
+    <% end %>
+ <% end %>

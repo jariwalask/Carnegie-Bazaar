@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Carnegie Bazaar</title>
+  <%= stylesheet_link_tag 'good2' %>
+</head>
+<body>
+<div id="header">
+	<div id="logo">
+	<h1></h1>
+	</div>
+ 
+	<div id="menu">
+         
+		<ul>
+                <li><a font style="text-transform: capitalize;" href="/items">Items On Sale</a></li>
+                <% if session[:member_id]  %>
+			  <%= link_to '<font style="text-transform: capitalize;">Sell', {:controller=>"items",:action =>"new"} %>
+			  <%= link_to '<font style="text-transform: capitalize;">My Items', {:controller=>"items", :action =>"mine" } %>
+			  <%= link_to '<font style="text-transform: capitalize;">My Transactions', {:controller=>"transactions", :action =>"mine" } %>
+                          <%= link_to '<font style="text-transform: capitalize;">Logout', {:controller=>"user",:action =>"logout"} %>
+                <% else  %>
+			  <%= link_to '<font style="text-transform: capitalize;">Register', {:controller=>"Members",:action =>"new"} %>
+                <% end %>
+            </ul>
+       </div>
+</div>
+<div id="page">
+
+	<div id="content">
+		<div>
+			<p style="color: green"><%= flash[:notice] %></p>
+                         <%= yield  %>
+		</div>
+		<div class="twocols">
+			<div class="col1">
+
+			</div>
+			<div class="col2">
+
+			</div>
+		</div>
+	</div>
+	<div id="sidebar">
+		<div id="search" class="boxed">
+			<h2 class="title">Search</h2>
+			<div class="content">
+                                <!--  The original HTML code
+				<form id="searchform" method="get" action="">
+					<fieldset>
+					<input id="searchinput" type="text" name="searchinput" value="" />
+					<input id="searchsubmit" type="submit" value="Search" />
+					</fieldset>
+				</form>
+                                -->
+
+                                <%# form_tag(search_path, :method => "get") do %>
+                                <%#= label_tag(:q, "Search for:") %>
+                                <%#= text_field_tag(:q) %>
+                                <%#= submit_tag("Search") %>
+                                <%# end %>
+
+                                <% form_tag items_path, :method => 'get' do %>
+                                  <p>
+                                    <%= text_field_tag :search, params[:search] %>
+                                    <br/>
+                                    <p>
+                                    <label for="item_search">Search by:</label><br/>
+                                    <%= select_tag :by, options_for_select(["Item", "Username"], params[:by])  %>
+                                    <% params[:type] = nil %>
+                                    </p><br/>
+                                    <%# if params[:by] == "Type" %>
+                                    <!--> <p>
+                                    <label for="type_search">Item type:</label><br/> -->
+                                    <%#=  collection_select(:item_type, :type_id, ItemType.all, :id, :itemType, {:prompt => true, :params => :item_type }) %>
+                                    <%#= select_tag :it, options_for_select(["Item", "Username", "Type"], params[:it])  %>
+                                    <%#= select_tag :type, options_from_collection_for_select(ItemType.all, :id, :itemType, params[:type])  %>
+                                    <!--> </p><br/> -->
+                                    <%# end %>
+                                    <%= submit_tag "Search", :name => nil %>
+
+                                  </p>
+                                <% end %>
+
+                      </div>
+		</div>
+                <% if !session[:member_id] %>
+		<div id="news" class="boxed">
+                        <h2 class="title">Login</h2>
+			<div class="content">
+				<ul>
+                                  <% if params[:action] != "login" %>
+                                    <% content_for(:sidebar) do %>
+                                        <% if !session[:member_id] %>
+                                           <%=   render(:partial=>"user/get_access") %>
+                                        <% end %>
+                                     <% end %>
+                                  <% end %>
+
+					 <%= yield :sidebar %>
+				</ul>
+			</div>
+		</div>
+                <% end %>
+		<div id="extra" class="boxed">
+			<h2 class="title">Bazaar Tools</h2>
+			<div class="content">
+				<ul class="list">
+                                    <% if session[:member_id]  %>
+                                          <%= link_to "Post Advertisement", {:controller=>"items", :action =>"new" } %><br/>
+                                          <%= link_to "My Advertisements", {:controller=>"item", :action =>"mine" } %><br/>
+                                          <!-- Put a comment tag since the links below are available under 'My Advertisements'
+                                          <%#= link_to "Edit Advertisement", {:controller=>"items", :action =>"new" } %><<br/>
+                                          <%#= link_to "Delete Advertisement", {:controller=>"items", :action =>"new" } %><br/>
+                                          -->
+                                          <!--<%= link_to "Transaction Statuses", {:controller=>"items", :action =>"new" } %><br/>-->
+
+                                    <% end %>
+                                    <% if session[:member_id]  %>
+                                          <%= link_to "Logout", {:controller=>"user",:action =>"logout"} %>
+                                     <% else  %>
+                                          <%= link_to "Please Login to access", {:controller=>"user",:action =>"login"} %>
+                                     <% end %>
+				</ul>
+			</div>
+		</div>
+                <% if session[:member_id] %>
+                <div id="news" class="boxed">
+                        <h2 class="title">Manage Account</h2>
+			<div class="content">
+				<ul class="list">
+                                    <%= link_to "Edit Account Information", {:controller=>"members", :action =>"edit", :id =>session[:member_id] } %><br/>
+                                    <%= link_to "Delete Account", {:controller=>"members", :action =>"edit", :id =>session[:member_id] } %>
+				</ul>
+			</div>
+		</div>
+                <% end %>
+		<div id="footer">
+			<p id="legal">&copy;2010 Carnegie Bazaar
+				Designed by Global Trekkers All Rights Reserved <br/>| <a>Privacy</a> | <a>Terms</a>|</a></p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
